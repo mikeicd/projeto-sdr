@@ -65,4 +65,8 @@ Utilizamos os blocos da [osmocom](https://osmocom.org/projects/gr-osmosdr/wiki/G
 
  ## Abrindo o projeto
 
- Com o GNU Radio aberto, na barra de menus clique em `File/Open` e selecione o projeto `testePlaca.grc` disponibilizado neste repositório.
+ -  Clone o repositório:
+ ```bash
+    git clone https://github.com/mikeicd/projeto-sdr.git
+```
+-   Com o GNU Radio aberto, na barra de menus clique em `File/Open` e selecione o projeto `testePlaca.grc` disponibilizado neste repositório.

@@ -24,7 +24,6 @@ from PyQt5 import Qt
 from gnuradio import qtgui
 from gnuradio.filter import firdes
 import sip
-from gnuradio import filter
 from gnuradio import gr
 from gnuradio.fft import window
 import sys
@@ -88,25 +87,25 @@ class testePlaca(gr.top_block, Qt.QWidget):
         self._center_freq_range = Range(85e6, 110e6, 50e3, 100e6, 200)
         self._center_freq_win = RangeWidget(self._center_freq_range, self.set_center_freq, "'center_freq'", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._center_freq_win)
-        self.qtgui_freq_sink_x_0_0 = qtgui.freq_sink_c(
+        self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
             1024, #size
             window.WIN_BLACKMAN_hARRIS, #wintype
             center_freq, #fc
-            channel_w, #bw
+            samp_rate, #bw
             "", #name
             1,
             None # parent
         )
-        self.qtgui_freq_sink_x_0_0.set_update_time(0.10)
-        self.qtgui_freq_sink_x_0_0.set_y_axis(-140, 10)
-        self.qtgui_freq_sink_x_0_0.set_y_label('Relative Gain', 'dB')
-        self.qtgui_freq_sink_x_0_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, 0.0, 0, "")
-        self.qtgui_freq_sink_x_0_0.enable_autoscale(False)
-        self.qtgui_freq_sink_x_0_0.enable_grid(True)
-        self.qtgui_freq_sink_x_0_0.set_fft_average(0.05)
-        self.qtgui_freq_sink_x_0_0.enable_axis_labels(True)
-        self.qtgui_freq_sink_x_0_0.enable_control_panel(False)
-        self.qtgui_freq_sink_x_0_0.set_fft_window_normalized(False)
+        self.qtgui_freq_sink_x_0.set_update_time(0.10)
+        self.qtgui_freq_sink_x_0.set_y_axis(-140, 10)
+        self.qtgui_freq_sink_x_0.set_y_label('Relative Gain', 'dB')
+        self.qtgui_freq_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, 0.0, 0, "")
+        self.qtgui_freq_sink_x_0.enable_autoscale(False)
+        self.qtgui_freq_sink_x_0.enable_grid(True)
+        self.qtgui_freq_sink_x_0.set_fft_average(0.05)
+        self.qtgui_freq_sink_x_0.enable_axis_labels(True)
+        self.qtgui_freq_sink_x_0.enable_control_panel(False)
+        self.qtgui_freq_sink_x_0.set_fft_window_normalized(False)
 
 
 
@@ -121,15 +120,15 @@ class testePlaca(gr.top_block, Qt.QWidget):
 
         for i in range(1):
             if len(labels[i]) == 0:
-                self.qtgui_freq_sink_x_0_0.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_freq_sink_x_0.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_freq_sink_x_0_0.set_line_label(i, labels[i])
-            self.qtgui_freq_sink_x_0_0.set_line_width(i, widths[i])
-            self.qtgui_freq_sink_x_0_0.set_line_color(i, colors[i])
-            self.qtgui_freq_sink_x_0_0.set_line_alpha(i, alphas[i])
+                self.qtgui_freq_sink_x_0.set_line_label(i, labels[i])
+            self.qtgui_freq_sink_x_0.set_line_width(i, widths[i])
+            self.qtgui_freq_sink_x_0.set_line_color(i, colors[i])
+            self.qtgui_freq_sink_x_0.set_line_alpha(i, alphas[i])
 
-        self._qtgui_freq_sink_x_0_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0_0.qwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_freq_sink_x_0_0_win)
+        self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.qwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._qtgui_freq_sink_x_0_win)
         self.osmosdr_source_0 = osmosdr.source(
             args="numchan=" + str(1) + " " + ""
         )
@@ -148,23 +147,12 @@ class testePlaca(gr.top_block, Qt.QWidget):
         self._ganho_range = Range(0, 100, 1, 50, 200)
         self._ganho_win = RangeWidget(self._ganho_range, self.set_ganho, "'ganho'", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._ganho_win)
-        self.band_pass_filter_0 = filter.fir_filter_ccf(
-            1,
-            firdes.band_pass(
-                1,
-                (center_freq + channel_w) * 3,
-                center_freq -  channel_w,
-                center_freq +  channel_w,
-                channel_w,
-                window.WIN_HAMMING,
-                6.76))
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.band_pass_filter_0, 0), (self.qtgui_freq_sink_x_0_0, 0))
-        self.connect((self.osmosdr_source_0, 0), (self.band_pass_filter_0, 0))
+        self.connect((self.osmosdr_source_0, 0), (self.qtgui_freq_sink_x_0, 0))
 
 
     def closeEvent(self, event):
@@ -181,6 +169,7 @@ class testePlaca(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.osmosdr_source_0.set_sample_rate(self.samp_rate)
+        self.qtgui_freq_sink_x_0.set_frequency_range(self.center_freq, self.samp_rate)
 
     def get_ganho(self):
         return self.ganho
@@ -193,17 +182,14 @@ class testePlaca(gr.top_block, Qt.QWidget):
 
     def set_channel_w(self, channel_w):
         self.channel_w = channel_w
-        self.band_pass_filter_0.set_taps(firdes.band_pass(1, (self.center_freq + self.channel_w) * 3, self.center_freq -  self.channel_w, self.center_freq +  self.channel_w, self.channel_w, window.WIN_HAMMING, 6.76))
-        self.qtgui_freq_sink_x_0_0.set_frequency_range(self.center_freq, self.channel_w)
 
     def get_center_freq(self):
         return self.center_freq
 
     def set_center_freq(self, center_freq):
         self.center_freq = center_freq
-        self.band_pass_filter_0.set_taps(firdes.band_pass(1, (self.center_freq + self.channel_w) * 3, self.center_freq -  self.channel_w, self.center_freq +  self.channel_w, self.channel_w, window.WIN_HAMMING, 6.76))
         self.osmosdr_source_0.set_center_freq(self.center_freq, 0)
-        self.qtgui_freq_sink_x_0_0.set_frequency_range(self.center_freq, self.channel_w)
+        self.qtgui_freq_sink_x_0.set_frequency_range(self.center_freq, self.samp_rate)
 
 
 
