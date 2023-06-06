@@ -56,6 +56,7 @@ Utilizamos os blocos da [osmocom](https://osmocom.org/projects/gr-osmosdr/wiki/G
 ```
 -   Para instalar os blocos no GNU Radio faça:
 ```bash
+    cd build
     sudo make install
     sudo ldconfig
 ```
@@ -70,3 +71,5 @@ Utilizamos os blocos da [osmocom](https://osmocom.org/projects/gr-osmosdr/wiki/G
     git clone https://github.com/mikeicd/projeto-sdr.git
 ```
 -   Com o GNU Radio aberto, na barra de menus clique em `File/Open` e selecione o projeto `testePlaca.grc` disponibilizado neste repositório.
+
+![Blocos Osmocom](images/osmocom_blocks.png)
