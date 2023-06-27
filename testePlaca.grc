@@ -34,26 +34,17 @@ options:
 
 blocks:
 - name: center_freq
-  id: variable_qtgui_range
+  id: variable
   parameters:
     comment: ''
-    gui_hint: ''
-    label: ''
-    min_len: '200'
-    orient: QtCore.Qt.Horizontal
-    rangeType: float
-    start: 85e6
-    step: 50e3
-    stop: 110e6
     value: 100e6
-    widget: counter_slider
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [40, 188.0]
+    coordinate: [48, 212.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: channel_freq
   id: variable_qtgui_range
   parameters:
@@ -63,8 +54,8 @@ blocks:
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
-    start: 85e6
-    step: 50e3
+    start: 80e6
+    step: 1e3
     stop: 110e6
     value: 100e6
     widget: counter_slider
@@ -105,7 +96,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [40, 308.0]
+    coordinate: [32, 292.0]
     rotation: 0
     state: true
 - name: samp_rate
@@ -179,7 +170,7 @@ blocks:
     bus_structure: null
     coordinate: [1200, 412.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: audio_sink_0
   id: audio_sink
   parameters:
@@ -196,7 +187,7 @@ blocks:
     bus_structure: null
     coordinate: [1352, 532.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_multiply_const_vxx_0
   id: blocks_multiply_const_vxx
   parameters:
@@ -214,7 +205,7 @@ blocks:
     bus_structure: null
     coordinate: [1288, 484.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_multiply_xx_0
   id: blocks_multiply_xx
   parameters:
@@ -256,7 +247,7 @@ blocks:
     bus_structure: null
     coordinate: [816, 236.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: osmosdr_source_0
   id: osmosdr_source
   parameters:
@@ -464,7 +455,7 @@ blocks:
     freq7: 100e6
     freq8: 100e6
     freq9: 100e6
-    gain0: '0'
+    gain0: '10'
     gain1: '10'
     gain10: '10'
     gain11: '10'
@@ -496,7 +487,7 @@ blocks:
     gain7: '10'
     gain8: '10'
     gain9: '10'
-    gain_mode0: 'False'
+    gain_mode0: 'True'
     gain_mode1: 'False'
     gain_mode10: 'False'
     gain_mode11: 'False'
@@ -630,7 +621,7 @@ blocks:
     alpha8: '1.0'
     alpha9: '1.0'
     autoscale: 'False'
-    average: '1.0'
+    average: '0.2'
     axislabels: 'True'
     bw: samp_rate
     color1: '"blue"'
@@ -692,7 +683,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [808, 100.0]
+    coordinate: [776, 100.0]
     rotation: 0
     state: enabled
 - name: rational_resampler_xxx_0
@@ -714,7 +705,7 @@ blocks:
     bus_structure: null
     coordinate: [1008, 300.0]
     rotation: 0
-    state: true
+    state: enabled
 
 connections:
 - [analog_sig_source_x_0, '0', blocks_multiply_xx_0, '1']

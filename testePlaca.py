@@ -96,12 +96,9 @@ class testePlaca(gr.top_block, Qt.QWidget):
         self._ganho_range = Range(0, 100, 1, 50, 200)
         self._ganho_win = RangeWidget(self._ganho_range, self.set_ganho, "'ganho'", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._ganho_win)
-        self._channel_freq_range = Range(85e6, 110e6, 50e3, 100e6, 200)
+        self._channel_freq_range = Range(80e6, 110e6, 1e3, 100e6, 200)
         self._channel_freq_win = RangeWidget(self._channel_freq_range, self.set_channel_freq, "'channel_freq'", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._channel_freq_win)
-        self._center_freq_range = Range(85e6, 110e6, 50e3, 100e6, 200)
-        self._center_freq_win = RangeWidget(self._center_freq_range, self.set_center_freq, "'center_freq'", "counter_slider", float, QtCore.Qt.Horizontal)
-        self.top_layout.addWidget(self._center_freq_win)
         self.rational_resampler_xxx_0 = filter.rational_resampler_ccc(
                 interpolation=12,
                 decimation=5,
@@ -122,7 +119,7 @@ class testePlaca(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, 0.0, 0, "")
         self.qtgui_freq_sink_x_0.enable_autoscale(False)
         self.qtgui_freq_sink_x_0.enable_grid(True)
-        self.qtgui_freq_sink_x_0.set_fft_average(1.0)
+        self.qtgui_freq_sink_x_0.set_fft_average(0.2)
         self.qtgui_freq_sink_x_0.enable_axis_labels(True)
         self.qtgui_freq_sink_x_0.enable_control_panel(False)
         self.qtgui_freq_sink_x_0.set_fft_window_normalized(False)
@@ -158,8 +155,8 @@ class testePlaca(gr.top_block, Qt.QWidget):
         self.osmosdr_source_0.set_freq_corr(0, 0)
         self.osmosdr_source_0.set_dc_offset_mode(0, 0)
         self.osmosdr_source_0.set_iq_balance_mode(0, 0)
-        self.osmosdr_source_0.set_gain_mode(False, 0)
-        self.osmosdr_source_0.set_gain(0, 0)
+        self.osmosdr_source_0.set_gain_mode(True, 0)
+        self.osmosdr_source_0.set_gain(10, 0)
         self.osmosdr_source_0.set_if_gain(20, 0)
         self.osmosdr_source_0.set_bb_gain(20, 0)
         self.osmosdr_source_0.set_antenna('', 0)
