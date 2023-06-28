@@ -224,7 +224,7 @@ class bpsk_stage6(gr.top_block, Qt.QWidget):
         )
         self.osmosdr_sink_0.set_time_unknown_pps(osmosdr.time_spec_t())
         self.osmosdr_sink_0.set_sample_rate(samp_rate)
-        self.osmosdr_sink_0.set_center_freq(98e6, 0)
+        self.osmosdr_sink_0.set_center_freq(50e6, 0)
         self.osmosdr_sink_0.set_freq_corr(0, 0)
         self.osmosdr_sink_0.set_gain(10, 0)
         self.osmosdr_sink_0.set_if_gain(20, 0)

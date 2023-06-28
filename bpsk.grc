@@ -344,7 +344,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1064, 616.0]
+    coordinate: [1080, 608.0]
     rotation: 0
     state: enabled
 - name: blocks_sub_xx_0
@@ -639,7 +639,7 @@ blocks:
     corr7: '0'
     corr8: '0'
     corr9: '0'
-    freq0: 98e6
+    freq0: 50e6
     freq1: 100e6
     freq10: 100e6
     freq11: 100e6
